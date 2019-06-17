@@ -1,8 +1,9 @@
 # status-js-state-channel
-State channels implementation via status-js-api and whisper
+
+PoC implementation of state channels via whisper made with https://github.com/status-im/status-js-api  
 
 ```
-geth --testnet --syncmode=light --ws --wsport=8546 --wsaddr=localhost --wsorigins="*" --rpc --maxpeers=25 --shh --shh.pow=0.002 --wsapi=eth,net,web3,shh,admin --unlock <account>
+geth --testnet --syncmode=light --ws --wsport=8546 --wsaddr=localhost --wsorigins="*" --rpc --maxpeers=25 --shh --shh.pow=0.002 --wsapi=eth,net,web3,shh,admin --unlock "<account 1>, <account 2>"
 ```
 
 ```

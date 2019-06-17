@@ -1,7 +1,3 @@
-/*global contract, config, it, assert, embark, web3, before, describe, beforeEach*/
-// const EthUtil = require('ethereumjs-util');
-// const TestUtils = require("../utils/testUtils");
-
 // basic StatusJS instantiation
 const StatusJS = require('status-js-api');
 const status_1 = new StatusJS
@@ -9,8 +5,7 @@ const status_2 = new StatusJS
 
 const privKey_1 = "0x7847A6D27AAD97D4C6FDC93F47CCD386F3A9DA8065EAF1A64DB5A284FE6BA76D"; // TODO manage private key issue later
 const privKey_2 = "0x11BA3F03E99672DAE1E23661BE19021D3EA69C7F43FFA1B58D742E5FD3553321"; 
-
-				// NOTE: it's a test private key, for test purpose only
+				// NOTE: private keys are for test purpose only
  
 let messageData, user1pubKey, user2pubKey, receivedMessageCb; 
 const delay = ms => new Promise(res => setTimeout(res, ms));
@@ -35,8 +30,6 @@ contract("Channels", function () {
 
 	  before(async () => {
 
-	    // let hash = await Signatures.methods.getDataHash("Iuri", [0], "London").call();
-	    // let signature = await web3.eth.sign(hash, accounts[0]);
 		await status_1.connect("ws://localhost:8546", privKey_1);
 		await status_2.connect("ws://localhost:8546", privKey_2);
 
@@ -60,22 +53,24 @@ contract("Channels", function () {
 		  await status_2.onMessage(receivedMessageCb());
 		  await status_1.sendMessage(user2pubKey, "test message");
 
-		  await delay(1000); // wait for 1s to recieve a message
+		  await delay(500); // wait for 0.5s to recieve a message
 		  assert.strictEqual(messageData, "test message");
 
 	});
 
-	it("it should set up a connection between two nodes and pass a message", async function () {
+	it("it should generate a signature, pass to another node and verify the signer", async function () {
+	    let hash = await Signatures.methods.getDataHash("Iuri", [0], "London").call();
+	    let signature = await web3.eth.sign(hash, accounts[1]);
 
+		await status_1.onMessage(receivedMessageCb());
 
+		await status_2.sendMessage(user1pubKey, signature);
+		await delay(500); // wait for 0.5s to recieve a message
+
+		let signer = await Signatures.methods.getMessageSigner("Iuri", [0], "London", messageData).call();
+
+		assert.strictEqual(signer, accounts[1]);
 	});
-
-
-	  	// TODO:
-	  	//1* set up connection between two nodes DONE
-	  	//2* generate signature on one node
-	  	//3* pass signature to another node
-
 
 })
 ;

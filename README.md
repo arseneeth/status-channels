@@ -14,7 +14,7 @@ git clone https://github.coim/arsenyjin/status-channels.git && cd status-channel
 ```
 Then import the private keys into `geth`, `--testnet` argument would automatically import the private keys into the testnet folder
 ```
-geth --testnet account import <your_path>/status-channels/nothing_special_delete_me_1.txt && geth --testnet account import <your_path>/status-channels/nothing_special_delete_me_1.txt
+geth --testnet account import <your_path>/status-channels/nothing_special_delete_me_1.txt && geth --testnet account import <your_path>/status-channels/nothing_special_delete_me_2.txt
 ```
 Alternatively you can use your own private keys. Just change `privKey_1` and `privKey_2` variables in `test/channels_spec.js` 
 

@@ -1,6 +1,6 @@
 # status-channels
 
-<p align="center">
+<p>
 <strong>WIP. DO NOT USE IN PRODUCTION. HIGH RISK ⚠</strong>
 </p>
 

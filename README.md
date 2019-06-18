@@ -16,7 +16,7 @@ Then import the private keys into `geth`, `--testnet` argument would automatical
 ```
 geth --testnet account import <your_path>/status-channels/nothing_special_delete_me_1.txt && geth --testnet account import <your_path>/status-channels/nothing_special_delete_me_1.txt
 ```
-Alternatively you can use or own private keys. Just change `privKey_1` and `privKey_2` variables in `test/channels_spec.js` 
+Alternatively you can use your own private keys. Just change `privKey_1` and `privKey_2` variables in `test/channels_spec.js` 
 
 Run 
 

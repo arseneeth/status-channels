@@ -25,7 +25,7 @@ geth --testnet --syncmode=light --ws --wsport=8546 --wsaddr=localhost --wsorigin
 ```
 This will start ropsten testnet, so you will have to wait a little bit before the node is synched with the Ethereum network.
 
-Then run
+Then run in a different window
 ```
 embark test ./test/channels_spec.js --node ws://localhost:8546
 ```

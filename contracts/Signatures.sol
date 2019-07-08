@@ -4,36 +4,28 @@ import "./common/MessageSigned.sol";
 
 contract Signatures is MessageSigned{
 
-	    function getDataHash(string calldata _username, 
-                         bytes calldata _statusContactCode, 
-                         string calldata _location
+	    function getDataHash(string calldata _messageData
             ) external view returns (bytes32) { 
-        return dataHash(_username, _statusContactCode, _location);
+        return dataHash(_messageData);
     }
 
-    function dataHash(string memory _username, 
-                      bytes memory _statusContactCode, 
-                      string memory _location
+    function dataHash(string memory _messageData
             ) internal view returns (bytes32) { 
-        return keccak256(abi.encodePacked(address(this), _username, _statusContactCode, _location));
+        return keccak256(abi.encodePacked(address(this), _messageData));
     }
     
-    function getSigner(string memory _username, 
-                    bytes memory _statusContactCode, 
-                    string memory _location, 
-                    bytes memory _signature
+    function getSigner(string memory _messageData, 
+                       bytes memory _signature
             ) internal returns(address) {
-        return recoverAddress(getSignHash(dataHash(_username, _statusContactCode, _location)), _signature);
+        return recoverAddress(getSignHash(dataHash(_messageData)), _signature);
         // return recoverAddress(dataHash(_username, _statusContactCode, _location)11, _signature);
 
     }
 
-    function getMessageSigner(string calldata _username, 
-                    bytes calldata _statusContactCode, 
-                    string calldata _location,
-                    bytes calldata _signature
+    function getMessageSigner(string calldata _messageData,
+                              bytes calldata _signature
             ) external returns(address) {
-        return getSigner(_username, _statusContactCode, _location, _signature);   
+        return getSigner(_messageData, _signature);   
         }
 
 

@@ -4,7 +4,24 @@ import "./common/MessageSigned.sol";
 
 contract Signatures is MessageSigned{
 
-	    function getDataHash(string calldata _messageData
+/*
+        https://solidity.readthedocs.io/en/v0.5.9/solidity-by-example.html#id3
+
+        For a contract that fulfils payments, the signed message must include:
+
+        The recipient’s address.
+        The amount to be transferred.
+        Protection against replay attacks.
+
+
+        mapping(uint256 => bool) usedNonces;
+        require(!usedNonces[nonce]);
+        usedNonces[nonce] = true;
+
+*/
+
+
+    function getDataHash(string calldata _messageData
             ) external view returns (bytes32) { 
         return dataHash(_messageData);
     }

@@ -2,7 +2,7 @@ pragma solidity >=0.5.0 <0.6.0;
 
 /*
         This contract is a copy of: 
-        https://solidity.readthedocs.io/en/v0.5.9/solidity-by-example.html#id3
+        	https://solidity.readthedocs.io/en/v0.5.9/solidity-by-example.html#id3
 
         For a contract that fulfils payments, the signed message must include:
 
@@ -22,14 +22,23 @@ contract PaymentChannel {
 	address payable public recipient;
 	uint256 public expiration; // timeout
 
-	constructor (address payable _recipient, uint256 duration)
-		public
-		payable
-	{
-		sender = msg.sender;
-		recipient = _recipient;
-		expiration = now + duration;
+	// constructor (address payable _recipient, uint256 duration)
+	// 	public
+	// 	payable
+	// {
+	// 	sender = msg.sender;
+	// 	recipient = _recipient;
+	// 	expiration = now + duration;
+	// }
+	function setSender(address payable _sender) public {
+		//TODO: add permissions
+		sender = _sender;
 	}
+
+	function setRecipient(address payable _recipient) public  {	
+		//TODO: add permissions
+		recipient = _recipient;
+	}	
 
 	function isValidSignature(uint256 amount, bytes memory signature)
 		internal
@@ -53,23 +62,8 @@ contract PaymentChannel {
 		selfdestruct(sender);
 	}
 
-	// the sender can extend the expiration at any time
-	function extend(uint256 newExpiration) public {
-		require(msg.sender == sender);
-		require(newExpiration > expiration);
 
-		expiration = newExpiration;
-	}
-
-	// if the timeout is reached without the recipient  closing the channel,
-	// then the Ether is released back to the sender.
-
-	function claimTimeout() public {
-		require(now >= expiration);
-		selfdestruct(sender);
-	}
-	
- 	    /// All functions below this are just taken from the chapter
+ 	/// All functions below this are just taken from the chapter
     /// 'creating and verifying signatures' chapter.
 
     function splitSignature(bytes memory sig)

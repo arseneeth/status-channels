@@ -3,7 +3,9 @@ const StatusJS = require('status-js-api');
 const status_1 = new StatusJS
 const status_2 = new StatusJS
 
+//Alice
 const privKey_1 = "0x7847A6D27AAD97D4C6FDC93F47CCD386F3A9DA8065EAF1A64DB5A284FE6BA76D"; // TODO manage private key issue later
+//Bob
 const privKey_2 = "0x11BA3F03E99672DAE1E23661BE19021D3EA69C7F43FFA1B58D742E5FD3553321"; 
 				// NOTE: given private keys are for test purpose only
  
